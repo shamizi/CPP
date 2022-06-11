@@ -6,7 +6,7 @@
 /*   By: shamizi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 16:37:17 by shamizi           #+#    #+#             */
-/*   Updated: 2022/06/08 17:01:24 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/06/09 17:16:57 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(void)
 	std::cout << "Memory adress str: " << &str << std::endl;
 	std::cout << "Memory adress stringPTR: " << &stringPTR << std::endl;
 	std::cout << "Memory adress stringREF: " << &stringREF << std::endl;
-
+	str = "bonjour";
 	std::cout << "Value str: " << str << std::endl;
 	std::cout << "Value stringPTR: " << *stringPTR << std::endl;
 	std::cout << "Value stringREF: " << stringREF << std::endl;
