@@ -6,39 +6,46 @@
 /*   By: shamizi <shamizi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 13:08:37 by shamizi           #+#    #+#             */
-/*   Updated: 2022/06/07 15:51:40 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/09/02 12:17:05 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phone.h"
 #include <stdlib.h>
 #include <sstream>
+#include <iostream>
 
 void	contact::add(int index)
 {
-	_index = index + 1;
-	std::cout << "enter first_name :" << std::endl;
-	std::getline(std::cin, _first_name);
-	std::cout << "enter last_name :" << std::endl;
-	std::getline(std::cin, _last_name);
-	std::cout << "enter nickname :" << std::endl;
-	std::getline(std::cin, _nickname);
-	std::cout << "enter phone number :" << std::endl;
-	std::getline(std::cin, _phone_number);
-	std::cout << "enter secret :" << std::endl;
-	std::getline(std::cin, _secret);
-	if (_secret == "" || _phone_number == "" || _nickname == "" || _last_name == "" || _first_name == "")
+	std::string commande;
+
+	std::cout << "you're about to add a contact, press a ENTER to continue";
+	if (getline(std::cin, commande))
 	{
-		std::cout << "you miss an information ! Try again" << std::endl;
-		add(index);
+		std::cout << "enter first_name :" << std::endl;
+		std::getline(std::cin, _first_name);
+		_index = index + 1;
+		std::cout << "enter last_name :" << std::endl;
+		std::getline(std::cin, _last_name);
+		std::cout << "enter nickname :" << std::endl;
+		std::getline(std::cin, _nickname);
+		std::cout << "enter phone number :" << std::endl;
+		std::getline(std::cin, _phone_number);
+		std::cout << "enter secret :" << std::endl;
+		std::getline(std::cin, _secret);
+		if (_secret == "" || _phone_number == "" || _nickname == "" || _last_name == "" || _first_name == "")
+		{
+			std::cout << "you miss an information ! Try again" << std::endl;
+			add(index);
+		}
+		else
+			std::cout << "Adding success !" << std::endl;
 	}
-	else
-		std::cout << "Adding success !" << std::endl;
-/*	std::cout << _first_name << std::endl;
-	std::cout << _last_name << std::endl;
-	std::cout << _nickname << std::endl;
-	std::cout << _phone_number << std::endl;
-	std::cout << _secret << std::endl;*/
+	/*	std::cout << _first_name << std::endl;
+		std::cout << _last_name << std::endl;
+		std::cout << _nickname << std::endl;
+		std::cout << _phone_number << std::endl;
+		std::cout << _secret << std::endl;*/
 }
 
 void	contact::search(void)
@@ -123,6 +130,7 @@ int	main(void)
 			std::cout << "numéro d'index souhaiter : " << std::endl;
 			show_index(page, i);
 		}
+		std::cout << "___________________________________________________________________" << std::endl;
 	}
 	return (0);
 }

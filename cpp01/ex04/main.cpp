@@ -6,7 +6,7 @@
 /*   By: shamizi <shamizi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/09 23:16:51 by shamizi           #+#    #+#             */
-/*   Updated: 2022/06/10 15:54:27 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/06/11 18:05:13 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,17 @@
 #include <ios>
 #include <algorithm>
 
-void	search_and_replace(std::string str, std::string file, std::string s1, std::string s2)
+void	search_and_replace(std::string str, char *file, const std::string s1, const std::string s2)
 {
 	std::ofstream ofs;
-	std::string newfile;
+	std::string test;
 	int pos = -1;
 	int i = 0;
 
-	newfile += file;
-	newfile += ".replace";
-	ofs.open(newfile, std::ofstream::out | std::ofstream::trunc);
+	test += file;
+	test += ".replace";
+
+	ofs.open((char *) test.c_str(), std::ofstream::out | std::ofstream::trunc);
 	if (ofs.fail())
 	{
 		std::cout <<"Couldn't create outfile" << std::endl;
@@ -52,9 +53,6 @@ int		main(int argc, char **argv)
 {
 	std::ifstream ifs;
 	std::string str;
-	std::string filename;
-	std::string s1;
-	std::string s2;
 	char c;
 
 	if (argc != 4)
@@ -62,10 +60,10 @@ int		main(int argc, char **argv)
 		std::cout << "Usage : Filename str1 str2" <<std::endl;
 		return (1);
 	}
-	filename += argv[1];
-	s1 += argv[2];
-	s2 += argv[3];
-	ifs.open (argv[1], std::ifstream::in);
+	const std::string s1 = argv[2];
+	const std::string s2 = argv[3];
+
+	ifs.open(argv[1], std::ifstream::in);
 	if (ifs.fail())
 	{
 		std::cout <<"couldn't open file" <<std::endl;
@@ -77,9 +75,8 @@ int		main(int argc, char **argv)
 		str += c;
 		c = ifs.get();
 	}
-
 	ifs.close();
-	search_and_replace(str,filename, s1, s2);
+	search_and_replace(str, argv[1], s1, s2);
 	return 0;
 }
 
