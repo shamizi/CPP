@@ -6,7 +6,7 @@
 /*   By: shamizi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:43:18 by shamizi           #+#    #+#             */
-/*   Updated: 2022/06/08 16:35:46 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/10/20 15:36:48 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Zombie.hpp"
@@ -48,7 +48,7 @@ Zombie::~Zombie(void)
 int	main(void)
 {
 	Zombie *horde;
-	horde = zombieHorde(10, "petite horde");
+	horde = zombieHorde(0, "petite horde");
 	delete [] horde;
 	return 0;
 }

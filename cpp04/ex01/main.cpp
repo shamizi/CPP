@@ -6,7 +6,7 @@
 /*   By: shamizi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 15:26:44 by shamizi           #+#    #+#             */
-/*   Updated: 2022/09/11 18:32:05 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/10/21 13:30:07 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,4 +213,9 @@ int main()
 	std::cout << "c'est normal de pas avoir le destructeur du chat dans ce cas, pour montrer que sans le virtual on accede pas au bonne fonction (cf le destructeur et le bon makesound)" << std::endl;
 	delete wrong;
 	delete wrongcat;*/
+	//Animal rand = new Animal();
+	//{
+	//	Animal copy = rand;
+	//}
+	//delete rand;
 }

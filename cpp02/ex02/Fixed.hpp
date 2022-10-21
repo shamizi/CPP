@@ -6,7 +6,7 @@
 /*   By: shamizi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:48:46 by shamizi           #+#    #+#             */
-/*   Updated: 2022/09/05 14:30:12 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/10/21 15:39:50 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,27 @@ class Fixed{
 		void	setRawBits(int const raw);
 		float	toFloat(void) const;
 		int	toInt(void) const;
-
+		static int	min(Fixed const &a, Fixed const &b);
+		//static int	max(Fixed const &a, Fixed const &b);
 		//6 nouveau operateur de comparaison
-		/*
-		   >
-		   <
-		   >=
-		   <=
-		   ==
-		   !=
-		   */
+		bool operator>(Fixed const & rhs) const;
+		bool operator<(Fixed const & rhs) const;
+		bool operator>=(Fixed const & rhs) const;
+		bool operator<=(Fixed const & rhs) const;
+		bool operator==(Fixed const & rhs) const;
+		bool operator!=(Fixed const & rhs) const;
 		// operateur arithmetique + - * /
-
+		Fixed operator+(Fixed const & rhs) const;
+		Fixed operator-(Fixed const & rhs) const;
+		Fixed operator/(Fixed const & rhs) const;
+		Fixed operator*(Fixed const & rhs) const;
 		//operateur d'incrementation ++q q++ --q q--
-
+		//prefixe :
+		Fixed &operator++(void); //++i
+		Fixed & operator--(void);
+		//suffixe
+		Fixed operator++(int);
+		Fixed operator--(int);
 };
 
 std::ostream & operator<<(std::ostream & o, Fixed const & rhs);
