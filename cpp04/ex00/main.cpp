@@ -6,7 +6,7 @@
 /*   By: shamizi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 15:26:44 by shamizi           #+#    #+#             */
-/*   Updated: 2022/09/11 17:40:29 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/10/25 11:16:20 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ Dog::Dog() : Animal()
 	std::cout << "DOG constructor called" << std::endl;
 }
 
-Dog::Dog(Dog const & src)
+Dog::Dog(Dog const & src) : Animal()
 {
 	*this = src;
 	std::cout << "DOG copy constructor called" << std::endl;
@@ -70,7 +70,7 @@ Cat::Cat() : Animal()
 	std::cout << "Cat constructor called" << std::endl;
 }
 
-Cat::Cat(Cat const & src)
+Cat::Cat(Cat const & src) : Animal()
 {
 	*this = src;
 	std::cout << "Cat copy constructor called" << std::endl;
@@ -148,7 +148,7 @@ WrongCat::WrongCat() : WrongAnimal()
 	std::cout << "WrongCat constructor called" << std::endl;
 }
 
-WrongCat::WrongCat(WrongCat const & src)
+WrongCat::WrongCat(WrongCat const & src) : WrongAnimal()
 {
 	*this = src;
 	std::cout << "WrongCat copy constructor called" << std::endl;
@@ -171,7 +171,7 @@ int main()
 {
 	const Animal* meta = new Animal();
 	const Animal* dog = new Dog();
-	const Animal* cat = new Cat();
+	const Cat* cat = new Cat();
 	std::cout << dog->getType() << " " << std::endl;
 	std::cout << cat->getType() << " " << std::endl;
 	dog->makeSound();
@@ -181,7 +181,7 @@ int main()
 	delete dog;
 	delete cat;
 	///////////////////////////////////////////////////////////////////////
-/*	const WrongAnimal* wrong = new WrongAnimal();
+	/*const WrongAnimal* wrong = new WrongAnimal();
 	const WrongAnimal* wrongcat = new WrongCat();
 	wrong->makeSound();
 	wrongcat->makeSound();

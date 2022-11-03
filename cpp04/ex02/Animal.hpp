@@ -6,7 +6,7 @@
 /*   By: shamizi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:48:46 by shamizi           #+#    #+#             */
-/*   Updated: 2022/10/25 13:55:35 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/10/25 14:31:53 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ class Animal{
 		//destructeur
 		virtual ~Animal();
 		//fonction membre
-		virtual void	makeSound() const;
+		virtual void	makeSound() const = 0;
 		std::string getType() const;
 };
 

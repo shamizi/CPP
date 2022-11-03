@@ -6,7 +6,7 @@
 /*   By: shamizi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:48:46 by shamizi           #+#    #+#             */
-/*   Updated: 2022/10/21 15:39:50 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/10/22 15:49:59 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ class Fixed{
 		void	setRawBits(int const raw);
 		float	toFloat(void) const;
 		int	toInt(void) const;
-		static int	min(Fixed const &a, Fixed const &b);
-		//static int	max(Fixed const &a, Fixed const &b);
+		static Fixed	min(Fixed const &a, Fixed const &b);
+		static Fixed	max(Fixed const &a, Fixed const &b);
+		static Fixed	min(Fixed &a, Fixed &b);
+		static Fixed	max(Fixed &a, Fixed &b);
 		//6 nouveau operateur de comparaison
 		bool operator>(Fixed const & rhs) const;
 		bool operator<(Fixed const & rhs) const;

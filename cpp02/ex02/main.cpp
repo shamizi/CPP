@@ -6,7 +6,7 @@
 /*   By: shamizi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 15:52:19 by shamizi           #+#    #+#             */
-/*   Updated: 2022/10/21 16:23:55 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/10/22 15:52:02 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,37 @@ Fixed &	Fixed::operator=(Fixed const & rhs)
 
 Fixed Fixed::operator+(Fixed const & rhs) const
 {
-	return Fixed(((int)this->_virgule >> this->_bits) + rhs.toInt());
+	Fixed tmp;
+	tmp.setRawBits((this->_virgule + rhs.getRawBits()) >> this->_bits);
+	return (tmp);
+
+	//return Fixed(((int)this->_virgule >> this->_bits) + rhs.toInt());
 }
 
 Fixed Fixed::operator-(Fixed const & rhs) const
 {
-	return Fixed(((int)this->_virgule >> this->_bits) - rhs.toInt());
+	Fixed tmp;
+	tmp.setRawBits((this->_virgule - rhs.getRawBits()) >> this->_bits);
+	return (tmp);
+
+//	return Fixed(((int)this->_virgule >> this->_bits) - rhs.toInt());
 }
 
 Fixed Fixed::operator*(Fixed const & rhs) const
 {
-	return Fixed(((int)this->_virgule >> this->_bits) * rhs.toInt());
+	Fixed tmp;
+	tmp.setRawBits((this->_virgule * rhs.getRawBits()) >> this->_bits);
+	return (tmp);
+	//return Fixed(((int)this->_virgule >> this->_bits) * rhs.toInt());
 }
 
 Fixed Fixed::operator/(Fixed const & rhs) const
 {
-	return Fixed(((int)this->_virgule >> this->_bits) / rhs.toInt());
+	Fixed tmp;
+	tmp.setRawBits((this->_virgule / rhs.getRawBits()) >> this->_bits);
+	return (tmp);
+
+//	return Fixed(((int)this->_virgule >> this->_bits) / rhs.toInt());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -190,12 +205,36 @@ int	Fixed::toInt(void) const
 	return ((int)(this->_virgule >> this->_bits));
 }
 ///////////////////////////////////////////////////////////////////////////////
-int	Fixed::min(Fixed const &a, Fixed const &b)
+Fixed	Fixed::min(Fixed const &a, Fixed const &b)
 {
-	if (a.getRawBits() <= b.getRawBits())
-		return((a.getRawBits()));
+	if (a <= b)
+		return(a);
 	else
-		return(b.getRawBits());
+		return(b);
+}
+
+Fixed	Fixed::max(Fixed const &a, Fixed const &b)
+{
+	if (a >= b)
+		return(a);
+	else
+		return(b);
+}
+
+Fixed	Fixed::min(Fixed &a, Fixed &b)
+{
+	if (a <= b)
+		return(a);
+	else
+		return(b);
+}
+
+Fixed	Fixed::max(Fixed &a, Fixed &b)
+{
+	if (a >= b)
+		return(a);
+	else
+		return(b);
 }
 
 /*int main( void ) {
@@ -243,12 +282,13 @@ return 0;
 int main( void ) {
 Fixed a;
 Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) ); //le probleme viens surement d'ici, donc soit la multiplication soit la copie // c pas la copie cest dans les surchages + - * / la merde
-a = 10;
 std::cout << a << std::endl;
-std::cout << a * a << "= 10 * 10" << std::endl;
+std::cout << ++a << std::endl;
+std::cout << a << std::endl;
 std::cout << a++ << std::endl;
 std::cout << a << std::endl;
 std::cout << b << std::endl;
+std::cout << Fixed::max( a, b ) << std::endl;
 std::cout << Fixed::min( a, b ) << std::endl;
 return 0;
 }
