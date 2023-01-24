@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.cpp                                           :+:      :+:    :+:   */
+/*   megaphone.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shamizi <shamizi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 16:14:59 by shamizi           #+#    #+#             */
-/*   Updated: 2022/09/02 12:33:39 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/10/19 10:41:56 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <string>
+#include <locale>
 
-std::string	maj(char *str)
+/*std::string	maj(char *str)
 {
 	int i;
 
@@ -24,20 +26,25 @@ std::string	maj(char *str)
 		i++;
 	}
 	return (str);
+}*/
+
+void	maj(char *s)
+{
+	std::locale 	loc;
+	std::string	str = s;
+	for (std::string::size_type i = 0; i < str.length(); ++i)
+		std::cout << std::toupper(str[i], loc);
 }
 
 int	main(int argc, char **argv)
 {
-	int	i;
-	std::string str;
+	int	i = 1;
 
-	i = 1;
 	if (argc == 1)
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *";
 	while(i < argc)
 	{
-		str = maj(argv[i]);
-		std::cout << str;
+		maj(argv[i]);
 		i++;
 	}
 	std::cout << std::endl;

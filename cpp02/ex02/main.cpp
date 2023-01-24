@@ -6,7 +6,7 @@
 /*   By: shamizi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 15:52:19 by shamizi           #+#    #+#             */
-/*   Updated: 2022/09/05 13:20:17 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/10/22 15:52:02 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,40 +48,135 @@ ne pas en faire, c'est rare d'etre justifier
 
 Fixed::Fixed(void)
 {
-	std::cout << "Default constructor called" << std::endl;
+//	std::cout << "Default constructor called" << std::endl;
 	this->_virgule = 0;
 }
 
 Fixed::Fixed(int const nb) : _virgule(nb)
 {
-	std::cout << "Int constructor called" << std::endl;
+//	std::cout << "Int constructor called" << std::endl;
 	this->_virgule = nb << this->_bits;
 }
 
 Fixed::Fixed(float const nb) : _virgule(nb)
 {
-	std::cout << "Float constructor called" << std::endl;
+//	std::cout << "Float constructor called" << std::endl;
 	this->_virgule = (int)(roundf(nb * (1 << this->_bits)));
 }
 
 Fixed::Fixed(Fixed const & src)
 {
-	std::cout << "Copy constructor called" << std::endl;
+//	std::cout << "Copy constructor called" << std::endl;
 	*this = src;
 }
 
 Fixed::~Fixed(void)
 {
-	std::cout << "Destructor called" << std::endl;
+//	std::cout << "Destructor called" << std::endl;
 }
 
+
+////////////////////////////////////////////////////////////////////////////////
 Fixed &	Fixed::operator=(Fixed const & rhs)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
+//	std::cout << "Copy assignment operator called" << std::endl;
 	this->_virgule = rhs.getRawBits();
 	return *this;
 }
 
+Fixed Fixed::operator+(Fixed const & rhs) const
+{
+	Fixed tmp;
+	tmp.setRawBits((this->_virgule + rhs.getRawBits()) >> this->_bits);
+	return (tmp);
+
+	//return Fixed(((int)this->_virgule >> this->_bits) + rhs.toInt());
+}
+
+Fixed Fixed::operator-(Fixed const & rhs) const
+{
+	Fixed tmp;
+	tmp.setRawBits((this->_virgule - rhs.getRawBits()) >> this->_bits);
+	return (tmp);
+
+//	return Fixed(((int)this->_virgule >> this->_bits) - rhs.toInt());
+}
+
+Fixed Fixed::operator*(Fixed const & rhs) const
+{
+	Fixed tmp;
+	tmp.setRawBits((this->_virgule * rhs.getRawBits()) >> this->_bits);
+	return (tmp);
+	//return Fixed(((int)this->_virgule >> this->_bits) * rhs.toInt());
+}
+
+Fixed Fixed::operator/(Fixed const & rhs) const
+{
+	Fixed tmp;
+	tmp.setRawBits((this->_virgule / rhs.getRawBits()) >> this->_bits);
+	return (tmp);
+
+//	return Fixed(((int)this->_virgule >> this->_bits) / rhs.toInt());
+}
+
+////////////////////////////////////////////////////////////////////////////////
+bool	Fixed::operator>(Fixed const & rhs) const
+{
+	return (this->_virgule > rhs.getRawBits());
+}
+
+bool	Fixed::operator<(Fixed const & rhs) const
+{
+	return (this->_virgule < rhs.getRawBits());
+}
+
+bool	Fixed::operator>=(Fixed const & rhs) const
+{
+	return (this->_virgule >= rhs.getRawBits());
+}
+
+bool	Fixed::operator<=(Fixed const & rhs) const
+{
+	return (this->_virgule <= rhs.getRawBits());
+}
+
+bool	Fixed::operator==(Fixed const & rhs) const
+{
+	return (this->_virgule == rhs.getRawBits());
+}
+
+bool	Fixed::operator!=(Fixed const & rhs) const
+{
+	return (this->_virgule != rhs.getRawBits());
+}
+///////////////////////////////////////////////////////////////////////////////
+Fixed	&Fixed::operator++(void)
+{
+	this->_virgule++;
+	return(*this);
+}
+
+Fixed	Fixed::operator++(int)
+{
+	Fixed tmp = *this;
+	operator++();
+	return (tmp);
+}
+
+Fixed	&Fixed::operator--(void)
+{
+	this->_virgule--;
+	return(*this);
+}
+
+Fixed	Fixed::operator--(int)
+{
+	Fixed tmp = *this;
+	operator--();
+	return (tmp);
+}
+
+//////////////////////////////////////////////////////////////////////////////
 std::ostream &	operator<<(std::ostream & o, Fixed const & rhs)
 {
 	o << rhs.toFloat();
@@ -96,7 +191,7 @@ int	Fixed::getRawBits(void) const
 
 void	Fixed::setRawBits(int const raw)
 {
-	std::cout << "setRawBits member function called" << std::endl;
+//	std::cout << "setRawBits member function called" << std::endl;
 	this->_virgule = raw;
 }
 
@@ -109,8 +204,40 @@ int	Fixed::toInt(void) const
 {
 	return ((int)(this->_virgule >> this->_bits));
 }
+///////////////////////////////////////////////////////////////////////////////
+Fixed	Fixed::min(Fixed const &a, Fixed const &b)
+{
+	if (a <= b)
+		return(a);
+	else
+		return(b);
+}
 
-int main( void ) {
+Fixed	Fixed::max(Fixed const &a, Fixed const &b)
+{
+	if (a >= b)
+		return(a);
+	else
+		return(b);
+}
+
+Fixed	Fixed::min(Fixed &a, Fixed &b)
+{
+	if (a <= b)
+		return(a);
+	else
+		return(b);
+}
+
+Fixed	Fixed::max(Fixed &a, Fixed &b)
+{
+	if (a >= b)
+		return(a);
+	else
+		return(b);
+}
+
+/*int main( void ) {
 Fixed a;
 Fixed const b( 10 );
 Fixed const c( 42.42f );
@@ -124,5 +251,44 @@ std::cout << "a is " << a.toInt() <<  " as integer " << std::endl;
 std::cout << "b is " << b.toInt() <<  " as integer " << std::endl;
 std::cout << "c is " << c.toInt() <<  " as integer " << std::endl;
 std::cout << "d is " << d.toInt() <<  " as integer " << std::endl;
+Fixed a = 5;
+Fixed b = 10;
+Fixed c;
+
+c = a + b;
+std::cout << "15 normalement : " << c << std::endl;
+c = a - b;
+std::cout << "-5 normalement : " << c << std::endl;
+c = a * b;
+std::cout << "50 normalement : " << c << std::endl;
+c = b / a;
+std::cout << "2 normalement : " << c << std::endl;
+if (a > b)
+	std::cout << " A plus grand que B" << std::endl;
+if (b > a)
+	std::cout << " B plus grand" << std::endl;
+std::cout << ++a << std::endl;
+std::cout << a << std::endl;
+std::cout << a++ << std::endl;
+std::cout << --a << std::endl;
+std::cout << a << std::endl;
+std::cout << a-- << std::endl;
+std::cout << a << std::endl;
+std::cout << a-- << std::endl;
+std::cout << a << std::endl;
+std::cout << Fixed::min(a, b) << std::endl;
+return 0;
+}*/
+int main( void ) {
+Fixed a;
+Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) ); //le probleme viens surement d'ici, donc soit la multiplication soit la copie // c pas la copie cest dans les surchages + - * / la merde
+std::cout << a << std::endl;
+std::cout << ++a << std::endl;
+std::cout << a << std::endl;
+std::cout << a++ << std::endl;
+std::cout << a << std::endl;
+std::cout << b << std::endl;
+std::cout << Fixed::max( a, b ) << std::endl;
+std::cout << Fixed::min( a, b ) << std::endl;
 return 0;
 }

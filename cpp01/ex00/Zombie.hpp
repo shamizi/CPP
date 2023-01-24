@@ -6,7 +6,7 @@
 /*   By: shamizi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:59:21 by shamizi           #+#    #+#             */
-/*   Updated: 2022/06/08 15:29:17 by shamizi          ###   ########.fr       */
+/*   Updated: 2022/10/20 15:12:06 by shamizi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@
 class Zombie {
 	public:
 		Zombie(std::string name);
-		~Zombie()
-		{
-			std::cout << this->_name << "is dead" << std::endl;
-		}
+		~Zombie();
 		void	announce(void);
 
 	private:
@@ -29,5 +26,5 @@ class Zombie {
 };
 
 void	randomChump(std::string name);
-
+Zombie* newZombie(std::string name);
 #endif
